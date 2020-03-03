@@ -5,9 +5,9 @@
 apiVersion: "aadpodidentity.k8s.io/v1"
 kind: AzureIdentityBinding
 metadata:
-  name: {{ template "application-gateway-kubernetes-ingress.azureidentity" . }}
+  name: demo-azure-identity-binding
 spec: 
-  AzureIdentity: ##AZUREIDENTITY##
+  AzureIdentity: {{ template "application-gateway-kubernetes-ingress.azureidentity" . }}
   Selector: ##SELECTOR##
 
 {{- end}}
