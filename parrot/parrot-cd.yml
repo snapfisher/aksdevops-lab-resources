@@ -10,7 +10,7 @@ variables:
 resources: 
   pipelines:
   - pipeline: ci-pipeline
-    source: parrot-ci
+    source: parrot/parrot-ci
     trigger:
       enabled: true
       branches:
