@@ -1,6 +1,7 @@
 replicaCount: 1
 image:
-  useImagePullSecrets: false
+  useImagePullSecrets: true
+    - name: regcred
   pullPolicy: Always
 service:
   internalPort: 80
