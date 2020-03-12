@@ -12,7 +12,7 @@ resources:
   - pipeline: ci-pipeline
     source: parrot-ci
     trigger:
-      enabled: true
+      enabled: false
       branches:
         include:
           - master
