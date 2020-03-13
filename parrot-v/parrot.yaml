@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parrot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parrot
+  template:
+    metadata:
+      labels:
+        app: parrot
+    spec:
+      containers:
+      - name: parrot-container
+        image: ado8reg.azurecr.io/parrot:429
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule
+      imagePullSecrets:
+      - name: parrot-acr-secret
