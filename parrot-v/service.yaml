@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: parrot
+  labels:
+    app: parrot
+    chart: parrot-429
+    release: parrot
+    heritage: parrot-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: parrot
+  type: ClusterIP

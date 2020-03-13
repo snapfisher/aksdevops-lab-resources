@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: parrot
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: parrot
+      app: {{ template "fullname" . }}
   template:
     metadata:
       labels:
-        app: parrot
+        app: {{ template "fullname" . }}
     spec:
-      containers:
-      - name: parrot-container
-        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
-        ports:
-        - containerPort: 80
       nodeSelector:
         kubernetes.io/role: agent
         beta.kubernetes.io/os: linux
@@ -26,5 +26,16 @@ spec:
         operator: Exists
       - key: azure.com/aci
         effect: NoSchedule
+{{ if .Values.image.useImagePullSecrets }}
       imagePullSecrets:
-      - name: parrot-acr-secret
+        - name: {{ .Chart.Name }}-acr-secret
+{{ end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+        env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Development
