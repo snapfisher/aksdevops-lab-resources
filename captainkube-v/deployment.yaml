@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: captainkube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: captainkube
+  template:
+    metadata:
+      labels:
+        app: captainkube
+    spec:
+      imagePullSecrets:
+        - name: captainkube-acr-secret
+      containers:
+      - name: captainkube-container
+        image: ado8reg.azurecr.io/captainkube:442
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule

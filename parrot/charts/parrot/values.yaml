@@ -1,8 +1,7 @@
 replicaCount: 1
 image:
-  useImagePullSecrets: true
+  useImagePullSecrets: false
   pullPolicy: Always
-  private: true
 service:
   internalPort: 80
   externalPort: 80
