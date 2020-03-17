@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: parrot
+  name: parrot-parrot
   labels:
-    app: parrot
-    chart: parrot-429
+    app: parrot-parrot
+    chart: parrot-parrot
     release: parrot
     heritage: parrot-service
 spec:
@@ -13,5 +13,5 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: parrot
+    app: parrot-parrot
   type: LoadBalancer

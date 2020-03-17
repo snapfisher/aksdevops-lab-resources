@@ -1,27 +1,26 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: parrot-parrot
+  name: phippy-phippy
   labels:
-    app: parrot-parrot
-    chart: parrot-parrot
-    release: parrot
-    heritage: parrot-service
+    draft: draft-app
+    chart: phippy-phippy
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: parrot-parrot
+  replicas: 2
   template:
     metadata:
       labels:
-        app: parrot-parrot
+        draft: draft-app
+        app: phippy-phippy
     spec:
+      imagePullSecrets:
+        - name: acr-secret
       containers:
-      - name: parrot
-        image: ado5reg.azurecr.io/parrot:464
+      - name: phippy
+        image: ado5reg.azurecr.io/phippy:466
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
+        - containerPort: 3333
       nodeSelector:
         kubernetes.io/role: agent
         beta.kubernetes.io/os: linux
@@ -31,5 +30,3 @@ spec:
         operator: Exists
       - key: azure.com/aci
         effect: NoSchedule
-      imagePullSecrets:
-      - name: acr-secret

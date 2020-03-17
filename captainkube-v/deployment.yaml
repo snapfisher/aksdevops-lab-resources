@@ -1,22 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: captainkube
+  name: captainkube-captainkube
+  labels:
+    app: captainkube-captainkube
+    chart: captainkube-captainkube
+    release: captainkube
+    heritage: captainkube-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: captainkube
+      app: captainkube-captainkube
   template:
     metadata:
       labels:
-        app: captainkube
+        app: captainkube-captainkube
     spec:
       imagePullSecrets:
-        - name: captainkube-acr-secret
+        - name: acr-secret
       containers:
-      - name: captainkube-container
-        image: ado8reg.azurecr.io/captainkube:442
+      - name: captainkube
+        image: ado5reg.azurecr.io/captainkube:465
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
@@ -26,12 +31,5 @@ spec:
             port: 3000
           initialDelaySeconds: 3
           periodSeconds: 3
-      nodeSelector:
-        kubernetes.io/role: agent
-        beta.kubernetes.io/os: linux
-        type: virtual-kubelet
-      tolerations:
-      - key: virtual-kubelet.io/provider
-        operator: Exists
-      - key: azure.com/aci
-        effect: NoSchedule
+
+

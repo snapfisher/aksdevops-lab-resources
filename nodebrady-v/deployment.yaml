@@ -1,27 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: parrot-parrot
+  name: nodebrady-nodebrady
   labels:
-    app: parrot-parrot
-    chart: parrot-parrot
-    release: parrot
-    heritage: parrot-service
+    app: nodebrady-nodebrady
+    chart: nodebrady-nodebrady
+    release: nodebrady
+    heritage: nodebrady-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: parrot-parrot
+      app: nodebrady-nodebrady
   template:
     metadata:
       labels:
-        app: parrot-parrot
+        app: nodebrady-nodebrady
     spec:
+      imagePullSecrets:
+        - name: acr-secret
       containers:
-      - name: parrot
-        image: ado5reg.azurecr.io/parrot:464
+      - name: nodebrady
+        image: ado5reg.azurecr.io/nodebrady:467
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 3000
       nodeSelector:
         kubernetes.io/role: agent
         beta.kubernetes.io/os: linux
@@ -31,5 +34,3 @@ spec:
         operator: Exists
       - key: azure.com/aci
         effect: NoSchedule
-      imagePullSecrets:
-      - name: acr-secret
