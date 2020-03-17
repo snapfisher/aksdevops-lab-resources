@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: parrot
-        image: ado5reg.azurecr.io/parrot:$(parrot-release)
+        image: ado5reg.azurecr.io/parrot:'$(parrot-release)'
         ports:
         - containerPort: 80
       nodeSelector:
