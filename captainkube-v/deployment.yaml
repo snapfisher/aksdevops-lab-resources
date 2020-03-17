@@ -21,7 +21,7 @@ spec:
         - name: acr-secret
       containers:
       - name: captainkube
-        image: ado5reg.azurecr.io/captainkube:465
+        image: ado5reg.azurecr.io/captainkube:##captainkubeversion##
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

@@ -17,7 +17,7 @@ spec:
         - name: acr-secret
       containers:
       - name: phippy
-        image: ado5reg.azurecr.io/phippy:466
+        image: ado5reg.azurecr.io/phippy:##phippyversion##
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3333
