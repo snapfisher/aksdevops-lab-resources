@@ -21,7 +21,7 @@ spec:
         - name: acr-secret
       containers:
       - name: nodebrady
-        image: ##clustername##.azurecr.io/nodebrady:##nodebradyversion##
+        image: ##regname##.azurecr.io/nodebrady:##nodebradyversion##
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
